@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sistem Manajemen Transportasi</title>
+</head>
+<body>
+
+<h2>Daftar Pelanggan Penyewa Kendaraan</h2>
+
+<div id="output"></div>
+
+<script>
+
+// CLASS KENDARAAN
+class Kendaraan {
+    constructor(namaKendaraan, jenis) {
+        this.namaKendaraan = namaKendaraan
+        this.jenis = jenis
+    }
+}
+
+// CLASS PELANGGAN
+class Pelanggan {
+    constructor(nama, nomorTelepon) {
+        this.nama = nama
+        this.nomorTelepon = nomorTelepon
+        this.kendaraanDisewa = null
+    }
+
+    // Method untuk menyewa kendaraan
+    sewaKendaraan(kendaraan) {
+        this.kendaraanDisewa = kendaraan
+    }
+}
+
+// CLASS SISTEM TRANSPORTASI
+class SistemTransportasi {
+    constructor() {
+        this.daftarPelanggan = []
+    }
+
+    // menambahkan pelanggan
+    tambahPelanggan(pelanggan) {
+        this.daftarPelanggan.push(pelanggan)
+    }
+
+    // menampilkan pelanggan yang sedang menyewa kendaraan
+    tampilkanPelanggan() {
+        let hasil = "<table border='1' cellpadding='10'>"
+        hasil += "<thead><tr><th>Nama</th><th>No Telepon</th><th>Kendaraan Disewa</th></tr></thead>"
+        hasil += "<tbody>"
+
+        this.daftarPelanggan.forEach(p => {
+            hasil += `<tr>
+                        <td>${p.nama}</td>
+                        <td>${p.nomorTelepon}</td>
+                        <td>${p.kendaraanDisewa.namaKendaraan} (${p.kendaraanDisewa.jenis})</td>
+                      </tr>`
+        })
+
+        hasil += "</tbody></table>"
+
+        document.getElementById("output").innerHTML = hasil
+    }
+}
+
+
+// MEMBUAT OBJEK KENDARAAN
+let mobil = new Kendaraan("Toyota Avanza", "Mobil")
+let motor = new Kendaraan("Honda Beat", "Motor")
+
+// MEMBUAT OBJEK PELANGGAN
+let pelanggan1 = new Pelanggan("Budi", "08123456789")
+let pelanggan2 = new Pelanggan("Siti", "08234567890")
+
+// TRANSAKSI SEWA
+pelanggan1.sewaKendaraan(mobil)
+pelanggan2.sewaKendaraan(motor)
+
+// SISTEM
+let sistem = new SistemTransportasi()
+
+sistem.tambahPelanggan(pelanggan1)
+sistem.tambahPelanggan(pelanggan2)
+
+// TAMPILKAN DATA
+sistem.tampilkanPelanggan()
+
+</script>
+
+</body>
+</html>
